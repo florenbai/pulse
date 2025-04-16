@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package alert_rule;
+
+option go_package = "alert_rule";
+
+message RuleGroupRequest {
+  string groupName = 1;
+  uint64 ruleSource = 2;
+  string file = 3;
+}
+
+message RuleRequest {
+  string name = 1;
+  uint64 gid = 2;
+  string query = 3;
+  int64 duration = 4;
+  repeated RuleLabel labels = 5;
+  repeated RuleLabel annotation = 6;
+}
+
+message RuleLabel {
+  string tag = 1;
+  string value = 2;
+}

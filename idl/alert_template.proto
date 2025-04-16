@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_template";
+
+import "api.proto";
+import "base.proto";
+
+message TemplateChannel {
+  string name = 1[(api.query)="name"];
+  bool finished = 2[(api.query)="finished"];
+  string content = 3[(api.query)="content"];
+}
+message TemplateRequest {
+  string templateName = 1[(api.query)="templateName"];
+  string templateDesc = 2[(api.query)="templateDesc"];
+  repeated uint64 channels = 3[(api.query)="channels"];
+}
+
+message TemplateQuery {
+  optional string templateName = 1[(api.query)="templateName"];
+  uint64 page = 11;
+  uint64 pageSize = 12;
+}
+
+service TemplateService {
+  rpc TemplateList(TemplateQuery) returns(base.Empty) {
+    option (api.get) = "/api/v1/template/list";
+  }
+  rpc DeleteTemplate(base.BaseId) returns(base.Empty) {
+    option (api.delete) = "/api/v1/template/:id";
+  }
+}

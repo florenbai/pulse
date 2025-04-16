@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_strategy";
+import "google/protobuf/struct.proto";
+
+message StrategyRequest {
+  string strategyName = 1;
+  string strategyDesc = 2;
+  int64 delay = 3;
+  uint64 templateId = 4;
+  TimeSlot timeSlot = 5;
+  repeated Filters filters = 6;
+  repeated StrategySet strategySet= 7;
+  uint64 workspaceId = 8;
+  optional bool systemStrategy = 9;
+  optional bool continuous = 10;
+}
+
+message Filters {
+  repeated StrategyFilter values = 1;
+}
+
+message SystemStrategyRequest {
+  string strategyName = 1;
+  string strategyDesc = 2;
+  int64 delay = 3;
+  uint64 templateId = 4;
+  repeated StrategySet strategySet= 7;
+}
+
+message SystemStrategyQuery {
+  optional string strategyName = 1;
+  uint64 page = 2;
+  uint64 pageSize = 3;
+}
+
+message TimeSlot {
+  bool enable = 1;
+  optional string type = 2;
+  repeated int64 weeks = 3;
+  repeated string times = 4;
+  optional int64 calendar = 5;
+}
+
+message StrategyFilter {
+  string tag = 1;
+  string operation = 2;
+  repeated string value = 3;
+}
+
+message StrategySet {
+  repeated int64 members = 1;
+  repeated int64 teams = 2;
+  repeated int64 schedules = 3;
+  repeated google.protobuf.ListValue alertChannels = 4;
+  optional AlertLoop alertLoop = 6;
+  optional Progression progression = 7;
+}
+
+
+message AlertLoop {
+  bool enable = 1;
+  int64 interval = 2;
+  int64 count = 3;
+}
+
+message Progression {
+  bool enable = 1;
+  int64 condition = 2;
+  int64 duration = 3;
+}
+
+message ChangeStrategySort {
+  uint64 id = 1;
+  int64  weight = 2;
+}
+
+message ChangeStrategySortRequest{
+  repeated ChangeStrategySort newWeight = 1;
+}

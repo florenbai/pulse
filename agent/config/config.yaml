@@ -1,0 +1,16 @@
+server:
+  logLevel: debug
+  logPath: "/opt/log/aaa.log"
+  rpcHost: "0.0.0.0:8633"
+
+prometheus:
+  sourceSign: ""
+  endpoint: ""
+
+nacos:
+  address: ""
+  port: 8848
+  namespaceId: ""
+  username: ""
+  password: ""
+

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package workspace;
+
+option go_package = "workspace_source";
+
+import "api.proto";
+import "base.proto";
+
+message RelatedWorkspaceSourceRequest {
+  string sourceName = 1;
+  uint64 sourceId = 2;
+  string description = 3;
+}
+
+message EditWorkspaceSourceRequest {
+  optional string sourceName = 1;
+  optional string description = 2;
+  optional string levelField = 3;
+}
+
+message LevelMappingRequest {
+  uint64 id = 1;
+  string alertSourceLevel = 2;
+}
+
+service WorkspaceSourceService {
+  rpc RelatedWorkspaceSource(RelatedWorkspaceSourceRequest) returns(base.BaseResp) {
+    option (api.put) = "/api/v1/workspace/source/related/:id";
+  }
+  rpc EditWorkspaceSource(EditWorkspaceSourceRequest) returns(base.BaseResp) {
+    option (api.put) = "/api/v1/workspace/source/:id";
+  }
+  rpc WorkspaceSourceLevelMapping(LevelMappingRequest) returns(base.BaseResp) {
+    option (api.put) = "/api/v1/workspace/source/level-mapping";
+  }
+
+}

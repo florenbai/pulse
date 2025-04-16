@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package agent;
+
+option go_package = "agent";
+import "google/protobuf/empty.proto";
+
+message PingRequest {
+  string sourceSign = 1;
+  string client = 2;
+}
+
+service AgentService {
+  rpc Ping(PingRequest) returns (google.protobuf.Empty) {}
+  rpc UpdateConfig(PingRequest) returns(google.protobuf.Empty) {}
+}

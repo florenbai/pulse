@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_channel";
+
+message AlertChannelRequest {
+  string channelName = 1;
+  string channelType = 2;
+  string channelSign = 3;
+  string channelGroup = 4;
+}

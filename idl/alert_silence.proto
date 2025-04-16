@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_silence";
+
+message SilenceTime {
+  repeated string rangeTime = 1;
+  repeated int64 weeks = 2;
+  repeated string times = 3;
+}
+
+message SilenceFilter {
+  string tag = 1;
+  string operation = 2;
+  repeated string value = 3;
+}
+message SilenceRequest {
+  string silenceName = 1;
+  string silenceDesc = 2;
+  string silenceType = 3;
+  uint64 templateId = 4;
+  SilenceTime silenceTime = 5;
+  repeated SilenceFilter filters = 6;
+  uint64 workspaceId = 8;
+}

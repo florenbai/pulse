@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_aggregation";
+
+message AggregationRequest {
+    string aggregationName = 1;
+    string aggregationDesc = 2;
+    uint64 workspaceId = 3;
+    bool levelDimension = 4;
+    bool titleDimension = 5;
+    repeated TagFilters tagsDimension = 6;
+    int64 windows = 7;
+    int64 storm = 8;
+}
+
+message TagFilters {
+    repeated TagFilter values = 1;
+}
+
+message TagFilter {
+    string tag = 1;
+    string operation = 2;
+    repeated string value = 3;
+}

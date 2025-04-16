@@ -1,0 +1,43 @@
+server:
+  log_level: "trace"
+  log_path: "./log"
+  debug_log: "./log/debug.log"
+  error_log: "./log/error.log"
+  access_log: "./log/owl.log"
+  addr: "0.0.0.0:5608"
+  #grpc服务地址
+  grpc_addr: ""
+  #rpc服务名称
+  rpc_name: ""
+  #告警自动同步agent地址
+  remote_prometheus: false
+
+mysql:
+  dsn: ""
+
+redis:
+  address: ""
+  password: ""
+  db: 0
+  max_idle: 10
+
+nacos:
+  namespace: ""
+  addr: ""
+  port: 8848
+  log_dir: ""
+  cache_dir: ""
+  log_level: ""
+  username: ""
+  password: ""
+
+authentication:
+  auth_secret : "pulse_key_2024"
+
+umdp:
+  host: ""
+  token: "JDsd3dcj3H83Xdklooc4"
+  email_channel: "email-devops"
+  wechat_channel: "wechat-darkhawk"
+  phone_channel: "ymrt"
+  template: 31

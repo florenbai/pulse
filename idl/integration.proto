@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package integration;
+
+option go_package = "integration";
+
+
+message IntegrationRequest {
+  string name = 1;
+  string description = 2;
+  string levelField = 3;
+  string token = 4;
+}
+
+message IntegrationRouterRequest {
+  repeated uint64 workspaces = 1;
+  int64 next = 2;
+  repeated Filters filters = 3;
+  int64 sort = 4;
+}
+
+message Filters {
+  repeated Filter values = 1;
+}
+
+message Filter {
+  string tag = 1;
+  string operation = 2;
+  repeated string value = 3;
+}
+
+message TagRewriteItem {
+  optional string oldTag = 1;
+  optional string expression = 2;
+  optional string newTag = 3;
+  optional string value = 4;
+  repeated string deleteTag = 5;
+}
+
+message TagRewriteRequest {
+  string rewriteType = 1;
+  TagRewriteItem rewriteItem = 4;
+  repeated Filter filters = 3;
+}
+
+
+

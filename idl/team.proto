@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "team";
+
+import "api.proto";
+import "base.proto";
+
+
+message TeamRequest {
+  string teamName = 1[(api.body)="teamName"];
+  string teamDesc = 2[(api.body)="teamDesc"];
+  bool status = 3[(api.body)="status"];
+  repeated uint64 teamMembers = 6[(api.body)="teamMembers"];
+}
+
+message TeamQuery {
+  optional string teamName = 1[(api.query)="teamName"];
+  optional bool status = 2[(api.query)="status"];
+  uint64 page = 11;
+  uint64 pageSize = 12;
+}
+
+message AuthorizationRequest {
+  repeated uint64 menus = 1[(api.query)="menus"];
+  uint64 workspace = 2[(api.query)="workspace"];
+}
+
+service TeamService {
+  rpc TeamList(TeamQuery) returns(base.Empty) {
+    option (api.get) = "/api/v1/team/list";
+  }
+  rpc CreateTeam(TeamRequest) returns(base.Empty) {
+    option (api.post) = "/api/v1/team";
+  }
+  rpc UpdateTeam(TeamRequest) returns(base.Empty) {
+    option (api.put) = "/api/v1/team/:id";
+  }
+  rpc DeleteUser(base.BaseId) returns(base.Empty) {
+    option (api.delete) = "/api/v1/team/:id";
+  }
+}

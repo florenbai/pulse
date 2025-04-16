@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_event";
+
+import "api.proto";
+import "base.proto";
+
+message WorkspaceEventListRequest {
+  string alertTitle = 1;
+  uint32 progress = 2;
+  string timeRange = 3;
+  optional int64 alertLevel = 4;
+  uint64 page = 5;
+  uint64 pageSize = 6;
+}
+
+message ClaimEventRequest {
+  repeated uint64 events = 1;
+}
+
+message CloseEventRequest {
+  repeated uint64 events = 1;
+  bool isRecovered = 2;
+}
+
+service AlertEventService {
+  rpc WorkspaceEventList(WorkspaceEventListRequest) returns(base.BaseListResp) {
+    option (api.get) = "/api/v1/event/workspace-list";
+  }
+}

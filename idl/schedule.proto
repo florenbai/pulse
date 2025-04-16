@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package schedule;
+
+option go_package = "schedule";
+
+message PostScheduleRequest {
+  string scheduleName = 1;
+  string scheduleDesc = 2;
+  uint64 teamId = 3;
+  repeated string scheduleTimeRange = 4;
+  repeated string schedulePeriod = 5;
+  repeated uint64 users = 6;
+}
+
+message SchedulePlanListRequest {
+  string month = 1;
+}
+
+message SchedulePlanSetRequest {
+  repeated uint64 index = 2;
+}
+
+

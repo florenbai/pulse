@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package prometheus;
+
+option go_package = "prometheus";
+import "google/protobuf/empty.proto";
+
+message AlertGroupRequest {
+  string FileName = 1;
+}
+
+message AlertRule {
+  string alert = 1;
+  string expr = 2;
+  string for = 3;
+  map<string, string> labels = 4;
+  map<string, string> annotations = 5;
+  string filename = 6;
+}
+
+message AlertRules {
+  repeated AlertRule rules = 1;
+  string filename = 2;
+  string groupName = 3;
+}
+
+message AlertRuleRequest {
+  AlertRule alertRule = 1;
+  string filename = 2;
+}
+
+message UpdateAlertRuleRequest {
+  string filename = 1;
+  string groupName = 2;
+  string updateAlertName = 3;
+  AlertRule alertRule = 4;
+}
+
+
+service PrometheusAgentService {
+  rpc CreateAlertGroup(AlertGroupRequest) returns (google.protobuf.Empty) {}
+  rpc DeleteAlertGroup(AlertGroupRequest) returns (google.protobuf.Empty) {}
+  rpc CreateAlertRules(AlertRules) returns (google.protobuf.Empty) {}
+  rpc UpdateAlertRule(UpdateAlertRuleRequest) returns (google.protobuf.Empty) {}
+  rpc DeleteAlertRule(AlertRules) returns (google.protobuf.Empty) {}
+  rpc Reload(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}

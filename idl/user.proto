@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "user";
+
+import "api.proto";
+import "base.proto";
+
+message UserRequest {
+  string nickname = 1[(api.query)="nickname"];
+  string username = 2[(api.query)="username"];
+  string email = 3[(api.query)="email"];
+  string phone = 4[(api.query)="phone"];
+  string userid = 5[(api.query)="userid"];
+}
+
+message UserQuery {
+  optional string nickName = 1[(api.query)="nickName"];
+  uint64 page = 11;
+  uint64 pageSize = 12;
+}
+
+service UserService {
+  rpc UserList(UserQuery) returns(base.Empty) {
+    option (api.get) = "/api/v1/user/list";
+  }
+}

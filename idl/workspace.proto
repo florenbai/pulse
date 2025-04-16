@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package workspace;
+
+option go_package = "workspace";
+
+import "api.proto";
+import "base.proto";
+
+
+message WorkspaceRequest {
+  string workspaceName = 1[(api.body)="workspaceName"];
+  string workspaceDesc = 2[(api.body)="workspaceDesc"];
+  repeated uint64 teams = 3[(api.body)="teams"];
+  repeated uint64 alertSource = 4[(api.body)="alertSource"];
+  uint64 strategy = 7[(api.body)="strategy"];
+}
+
+message WorkspaceBaseResp {
+  string workspaceName = 1[(api.body)="workspaceName"];
+  string workspaceDesc = 2[(api.body)="workspaceDesc"];
+  repeated uint64 teams = 3[(api.body)="teams"];
+}
+
+message AlertLoop {
+  bool enable = 1[(api.body)="enable"];
+  optional uint64 count = 2[(api.body)="count"];
+  optional uint64 interval = 3[(api.body)="interval"];
+}
+
+message Progression {
+  bool enable = 1[(api.body)="enable"];
+  optional uint64 duration = 2[(api.body)="duration"];
+  optional uint64 condition = 3[(api.body)="condition"];
+}
+
+message StrategyItem {
+  repeated uint64 members = 1[(api.body)="members"];
+  repeated string alertChannels = 2[(api.body)="alertChannels"];
+  repeated string alertLevel = 3[(api.body)="alertLevel"];
+  AlertLoop alertLoop = 4[(api.body)="alertLoop"];
+}
+
+message WorkspaceQuery {
+  optional string workspaceName = 1[(api.query)="workspaceName"];
+  optional uint64 type = 2[(api.query)="type"];
+  uint64 page = 11;
+  uint64 pageSize = 12;
+}
+
+service WorkspaceService {
+  rpc WorkspaceList(WorkspaceQuery) returns(base.Empty) {
+    option (api.get) = "/api/v1/workspace/list";
+  }
+  rpc CreateWorkspace(WorkspaceRequest) returns(base.Empty) {
+    option (api.post) = "/api/v1/workspace";
+  }
+  rpc DeleteWorkspace(base.BaseId) returns(base.Empty) {
+    option (api.delete) = "/api/v1/workspace/:id";
+  }
+}

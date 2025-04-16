@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_restrain";
+
+message RestrainRequest {
+  string restrainType = 1;
+  repeated string fields = 2;
+  int64 cumulativeTime = 3;
+}

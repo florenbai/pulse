@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package owl_agent;
+
+import "google/protobuf/empty.proto";
+option go_package = "owl_agent";
+
+message RuleRequest {
+  string op = 1;
+  string filename = 2;
+  repeated RuleGroup groups = 3;
+}
+
+message RuleGroup {
+  string name = 1;
+  repeated Rule rules = 2;
+}
+
+message Rule {
+  string alert = 1;
+  string expr = 2;
+  string for = 3;
+  map<string, string> labels = 4;
+  map<string, string> annotations = 5;
+}
+
+service OwlAgentService {
+  rpc UpdateRule(RuleRequest) returns(google.protobuf.Empty) {}
+}

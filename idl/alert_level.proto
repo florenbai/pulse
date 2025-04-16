@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package alert;
+
+option go_package = "alert_level";
+
+message LevelRequest {
+  string levelName = 1;
+  string color = 2;
+  string levelDesc = 3;
+}
